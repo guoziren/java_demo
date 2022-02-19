@@ -5,7 +5,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 
 import com.ustc.util.Computor;
 import com.ustc.util.FileUtil;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,7 +36,7 @@ public class MyServiceImplTest {
      */
     @Test
     public void testStaticPublicMethod1() throws Exception {
-        myService.method1();
+        myService.testStaticPublicMethod1();
         PowerMockito.verifyStatic(FileUtil.class, Mockito.times(1));
         FileUtil.read(Mockito.anyString());
     }
@@ -49,7 +48,7 @@ public class MyServiceImplTest {
     public void testStaticPublicMethod2() throws Exception {
         String result = "abc";
         Mockito.when(FileUtil.read(Mockito.anyString())).thenReturn(result);
-        Assert.assertEquals(result, myService.method2());
+        Assert.assertEquals(result, myService.testStaticPublicMethod2());
         PowerMockito.verifyStatic(FileUtil.class, Mockito.times(1));
         FileUtil.read(Mockito.anyString());
     }
@@ -59,7 +58,7 @@ public class MyServiceImplTest {
      */
     @Test
     public void testStaticPublicMethod3() throws Exception {
-        myService.method3();
+        myService.testStaticPublicMethod3();
         PowerMockito.verifyStatic(FileUtil.class, Mockito.times(1));
         FileUtil.read2(Mockito.anyString());
     }
@@ -71,7 +70,7 @@ public class MyServiceImplTest {
         PowerMockito.spy(FileUtil.class);
         String result = "abc";
         PowerMockito.doReturn(result).when(FileUtil.class, "read3Private", "");
-        FileUtil.read3("");
+        myService.testStatiPrivateMethod1();
         PowerMockito.verifyPrivate(FileUtil.class, Mockito.times(1)).invoke("read3Private", "");
     }
 
@@ -79,7 +78,7 @@ public class MyServiceImplTest {
     public void testStatiPrivateMethod2() throws Exception {
         PowerMockito.spy(FileUtil.class);
         PowerMockito.doNothing().when(FileUtil.class, "read4Private", "");
-        FileUtil.read4("");
+        myService.testStatiPrivateMethod2();
         PowerMockito.verifyPrivate(FileUtil.class, Mockito.times(1)).invoke("read4Private", "");
     }
 
@@ -89,11 +88,11 @@ public class MyServiceImplTest {
     @Test
     public void testPrivateMethod1() throws Exception {
         Computor spy = PowerMockito.spy(new Computor());
-        // 注，mock私有方法的返回值要用下面这种写法，即doReturn...when...  ， 而非 when...then return
-        // Only void methods can doNothing()!
+        // 注，mock私有方法的返回值要用下面这种写法，即doReturn...when...  ， 而非 when...then return，
+        // 是因为和spy一起用? 不用spy就还是用 when...then return
         PowerMockito.doReturn(5).when(spy, "realAdd", anyInt(), anyInt());
-//        PowerMockito.doThrow(new RuntimeException("test")).when(spy, "realAdd", Mockito.anyInt() ,Mockito.anyInt());
-        myService.method6(spy);
+        // Only void methods can doNothing()!
+        myService.testPrivateMethod1(spy);
         // verifyPrivate 既适用于对象私有方法，也适用于类私有方法
         PowerMockito.verifyPrivate(spy, Mockito.times(1)).invoke("realAdd", anyInt(), anyInt());
     }
@@ -145,13 +144,30 @@ public class MyServiceImplTest {
     }
     /**************** mock抛出异常 end ********************/
 
+    /**************** mock final start ********************/
+    // 注: 给FileUtil的类和方法上都加上final修饰，上面测试代码不用修改也是通过的
+    /**************** mock final end ********************/
+
     /**************** mock 异步转同步 start ********************/
+
     /**************** mock 异步转同步 end ********************/
 
     /**************** mock 替换静态方法 start ********************/
+
     /**************** mock 替换静态方法 end ********************/
-    /**************** mock new  ********************/
-    /**************** mock 构造函数  ********************/
+
+    /**************** mock new start ********************/
+    @Test
+    public void testNew() throws Exception {
+        Computor computor = Mockito.mock(Computor.class);
+        Mockito.when(computor.add(anyInt(), anyInt())).thenReturn(5);
+        PowerMockito.whenNew(Computor.class).withNoArguments().thenReturn(computor);
+        String result = new FileUtil().testNew();
+        Assert.assertEquals("5", result);
+    }
+    /**************** mock new end ********************/
+
+
     /**************** mock 参数捕获  ********************/
     /**************** mock spring项目  ********************/
     /**************** jacoco覆盖率项目搭建 ********************/

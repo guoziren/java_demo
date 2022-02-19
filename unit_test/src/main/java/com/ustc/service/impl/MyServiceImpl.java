@@ -11,37 +11,37 @@ import com.ustc.util.FileUtil;
 public class MyServiceImpl implements MyService {
 
     @Override
-    public void method1() {
+    public void testStaticPublicMethod1() {
         String path = "";
         FileUtil.read(path);
     }
 
     @Override
-    public String method2() {
+    public String testStaticPublicMethod2() {
         String path = "";
         return FileUtil.read(path);
     }
 
     @Override
-    public void method3() {
+    public void testStaticPublicMethod3() {
         String path = "";
         FileUtil.read2(path);
     }
 
     @Override
-    public String method4() {
+    public String testStatiPrivateMethod1() {
         String path = "";
         return FileUtil.read3(path);
     }
 
     @Override
-    public void method5() {
+    public void testStatiPrivateMethod2() {
         String path = "";
         FileUtil.read4(path);
     }
 
     @Override
-    public int method6(Computor computor) {
+    public int testPrivateMethod1(Computor computor) {
         return computor.add(1,2);
     }
 }

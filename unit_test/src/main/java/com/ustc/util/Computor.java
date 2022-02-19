@@ -10,7 +10,7 @@ public class Computor {
     }
 
     private static int realStaticAdd(int x, int y) {
-        return x + y;
+        throw new UnsupportedOperationException("暂不支持");
     }
 
     public int add(int x, int y) {
