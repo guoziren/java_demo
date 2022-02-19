@@ -9,4 +9,5 @@ public interface PowermockPractiseService {
     String testStatiPrivateMethod1();
     void testStatiPrivateMethod2();
     int testPrivateMethod1(Computor computor);
+    void testAsync();
 }

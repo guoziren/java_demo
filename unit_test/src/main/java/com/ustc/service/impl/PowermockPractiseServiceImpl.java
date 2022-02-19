@@ -1,13 +1,16 @@
 package com.ustc.service.impl;
 
 import com.ustc.service.PowermockPractiseService;
+import com.ustc.util.AsyncExecutor;
 import com.ustc.util.Computor;
 import com.ustc.util.FileUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Description: Powermock 练习
  * @Date: 2022/2/19
  */
+@Slf4j
 public class PowermockPractiseServiceImpl implements PowermockPractiseService {
 
     @Override
@@ -43,5 +46,12 @@ public class PowermockPractiseServiceImpl implements PowermockPractiseService {
     @Override
     public int testPrivateMethod1(Computor computor) {
         return computor.add(1,2);
+    }
+
+    @Override
+    public void testAsync() {
+        AsyncExecutor.getInstance().execute(() -> {
+            log.info("testAsync");
+        });
     }
 }

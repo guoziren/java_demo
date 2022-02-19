@@ -1,11 +1,14 @@
 package com.ustc.service.impl;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.isA;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import com.google.common.hash.BloomFilter;
+import com.ustc.util.AsyncExecutor;
 import com.ustc.util.Computor;
 import com.ustc.util.FileUtil;
 import java.lang.reflect.InvocationHandler;
@@ -17,17 +20,23 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.internal.util.StringUtil;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(value = {FileUtil.class, Computor.class, Objects.class})
+@PrepareForTest(value = {FileUtil.class, Computor.class, Objects.class, AsyncExecutor.class})
 public class PowermockPractiseServiceImplTest {
     private static final String ERROR_MSG = "TEST";
     private PowermockPractiseServiceImpl myService;
+    @Mock
+    private AsyncExecutor asyncExecutor;
 
     @Before
     public void setUp() throws Exception {
@@ -165,7 +174,40 @@ public class PowermockPractiseServiceImplTest {
     /**************** mock final end ********************/
 
     /**************** mock 异步转同步 start ********************/
+    /**
+     * 使用 doAnswer
+     */
+    @Test
+    public void testAsync1() {
+        PowerMockito.mockStatic(AsyncExecutor.class);
+        PowerMockito.when(AsyncExecutor.getInstance()).thenReturn(asyncExecutor);
+        Mockito.doAnswer(invocationOnMock -> {
+            // 获得 runnable 参数
+            Runnable argument = invocationOnMock.getArgument(0);
+            // 同步执行
+            argument.run();
+            return null;
+        }).when(asyncExecutor).execute(isA(Runnable.class));
+        myService.testAsync();
+        // 验证 Runnable 中的行为
+        // ...
+    }
 
+    /**
+     * 使用参数捕获
+     */
+    @Test
+    public void testAsync2() {
+        PowerMockito.mockStatic(AsyncExecutor.class);
+        PowerMockito.when(AsyncExecutor.getInstance()).thenReturn(asyncExecutor);
+        myService.testAsync();
+        ArgumentCaptor<Runnable> runnableArgumentCaptor = ArgumentCaptor.forClass(Runnable.class);
+        Mockito.verify(asyncExecutor, Mockito.times(1)).execute(runnableArgumentCaptor.capture());
+        Runnable value = runnableArgumentCaptor.getValue();
+        value.run();
+        // 验证
+        // ...
+    }
     /**************** mock 异步转同步 end ********************/
 
     /**************** mock 替换静态方法 start ********************/
@@ -192,8 +234,10 @@ public class PowermockPractiseServiceImplTest {
     }
     /**************** mock new end ********************/
 
+    /**************** mock 参数捕获 start ********************/
+    // 见上面的 testAsync2
+    /**************** mock 参数捕获 end ********************/
 
-    /**************** mock 参数捕获  ********************/
     /**************** mock spring项目  ********************/
     /**************** 忽略不想要的行为  ********************/
     /**************** jacoco覆盖率项目搭建 ********************/
