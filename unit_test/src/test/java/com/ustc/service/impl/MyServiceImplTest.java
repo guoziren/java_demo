@@ -100,7 +100,9 @@ public class MyServiceImplTest {
     /**************** mock 私有方法 end ********************/
 
     /**************** mock抛出异常 start ********************/
-    // 公有方法抛出异常
+    /**
+     * 公有方法抛出异常
+     */
     @Test
     public void testPublicThrowException() {
         Computor computor = Mockito.mock(Computor.class);
@@ -111,7 +113,10 @@ public class MyServiceImplTest {
             Assert.assertTrue(e.getMessage().equals(ERROR_MSG));
         }
     }
-    // 私有方法抛出异常
+
+    /**
+     * 私有方法抛出异常
+     */
     @Test
     public void testPrivateThrowException() throws Exception {
         Computor computor = PowerMockito.spy(new Computor());
@@ -122,7 +127,10 @@ public class MyServiceImplTest {
             Assert.assertTrue(e.getMessage().equals(ERROR_MSG));
         }
     }
-    // 静态公有方法抛出异常
+
+    /**
+     * 静态公有方法抛出异常
+     */
     @Test
     public void testStaticPublicThrowException() {
         PowerMockito.when(FileUtil.read(anyString())).thenThrow(new RuntimeException(ERROR_MSG));
@@ -132,7 +140,10 @@ public class MyServiceImplTest {
             Assert.assertTrue(e.getMessage().equals(ERROR_MSG));
         }
     }
-    // 静态私有方法抛出异常
+
+    /**
+     * 静态私有方法抛出异常
+     */
     @Test
     public void testStaticPrivateThrowException() throws Exception {
         PowerMockito.doThrow(new RuntimeException(ERROR_MSG)).when(FileUtil.class, "read3Private", anyString());
