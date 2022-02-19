@@ -17,14 +17,14 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = {FileUtil.class, Computor.class})
-public class MyServiceImplTest {
+public class PowermockPractiseServiceImplTest {
     private static final String ERROR_MSG = "TEST";
-    private MyServiceImpl myService;
+    private PowermockPractiseServiceImpl myService;
 
     @Before
     public void setUp() throws Exception {
         PowerMockito.mockStatic(FileUtil.class);
-        myService = new MyServiceImpl();
+        myService = new PowermockPractiseServiceImpl();
     }
 
     @After

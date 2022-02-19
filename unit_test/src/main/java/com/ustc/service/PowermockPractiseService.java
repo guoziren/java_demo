@@ -2,7 +2,7 @@ package com.ustc.service;
 
 import com.ustc.util.Computor;
 
-public interface MyService {
+public interface PowermockPractiseService {
     void testStaticPublicMethod1();
     String testStaticPublicMethod2();
     void testStaticPublicMethod3();

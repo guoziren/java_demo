@@ -1,14 +1,14 @@
 package com.ustc.service.impl;
 
-import com.ustc.service.MyService;
+import com.ustc.service.PowermockPractiseService;
 import com.ustc.util.Computor;
 import com.ustc.util.FileUtil;
 
 /**
- * @Description:
+ * @Description: Powermock 练习
  * @Date: 2022/2/19
  */
-public class MyServiceImpl implements MyService {
+public class PowermockPractiseServiceImpl implements PowermockPractiseService {
 
     @Override
     public void testStaticPublicMethod1() {
