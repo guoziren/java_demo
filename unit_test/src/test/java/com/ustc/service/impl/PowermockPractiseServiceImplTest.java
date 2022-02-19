@@ -3,20 +3,28 @@ package com.ustc.service.impl;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 
+import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
+import com.google.common.hash.BloomFilter;
 import com.ustc.util.Computor;
 import com.ustc.util.FileUtil;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.UUID;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.mockito.internal.util.StringUtil;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(value = {FileUtil.class, Computor.class})
+@PrepareForTest(value = {FileUtil.class, Computor.class, Objects.class})
 public class PowermockPractiseServiceImplTest {
     private static final String ERROR_MSG = "TEST";
     private PowermockPractiseServiceImpl myService;
@@ -27,9 +35,6 @@ public class PowermockPractiseServiceImplTest {
         myService = new PowermockPractiseServiceImpl();
     }
 
-    @After
-    public void tearDown() throws Exception {
-    }
     /**************** mock 静态公有方法 start ********************/
     /**
      * 验证调用次数
@@ -164,7 +169,16 @@ public class PowermockPractiseServiceImplTest {
     /**************** mock 异步转同步 end ********************/
 
     /**************** mock 替换静态方法 start ********************/
-
+    /**
+     * 通过replace 可以替换某个方法实现， 如替换android.jar中中TextUtils.isEmpty方法
+     */
+    @Test
+    public void replaceInit() {
+        // 这里不需要PowerMockito.mockStatic(Objects.class)
+        Method randomUUID = PowerMockito.method(Objects.class, "equal", Object.class, Object.class);
+        PowerMockito.replace(randomUUID).with((proxy, method, args) ->  true);
+        Assert.assertTrue(Objects.equal("1","2"));
+    }
     /**************** mock 替换静态方法 end ********************/
 
     /**************** mock new start ********************/
@@ -181,5 +195,6 @@ public class PowermockPractiseServiceImplTest {
 
     /**************** mock 参数捕获  ********************/
     /**************** mock spring项目  ********************/
+    /**************** 忽略不想要的行为  ********************/
     /**************** jacoco覆盖率项目搭建 ********************/
 }
