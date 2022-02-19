@@ -47,6 +47,15 @@
                 <artifactId>logback-classic</artifactId>
                 <version>1.2.10</version>
             </dependency>
+
+            <dependency>
+                <!--  must be on the classpath  -->
+                <groupId>org.jacoco</groupId>
+                <artifactId>org.jacoco.agent</artifactId>
+                <classifier>runtime</classifier>
+                <version>0.8.7</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
