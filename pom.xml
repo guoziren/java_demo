@@ -13,6 +13,7 @@
         <module>unit_test</module>
         <module>logback_demo</module>
         <module>log4j2_demo</module>
+        <module>log4j2_logback_demo</module>
     </modules>
     <properties>
         <powermock.version>2.0.2</powermock.version>
@@ -26,15 +27,6 @@
                 <artifactId>lombok</artifactId>
                 <version>1.18.22</version>
             </dependency>
-
-            <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>1.2.10</version>
-                <!--                <scope>test</scope>-->
-            </dependency>
-
 
             <dependency>
                 <groupId>org.powermock</groupId>
@@ -54,12 +46,6 @@
             </dependency>
 
             <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>1.2.10</version>
-            </dependency>
-
-            <dependency>
                 <!--  must be on the classpath  -->
                 <groupId>org.jacoco</groupId>
                 <artifactId>org.jacoco.agent</artifactId>
@@ -73,6 +59,17 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.7.36</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.2.10</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>1.2.10</version>
             </dependency>
 
             <!--  log4j2          -->
