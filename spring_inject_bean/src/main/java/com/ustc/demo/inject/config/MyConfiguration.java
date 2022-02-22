@@ -1,7 +1,7 @@
 package com.ustc.demo.inject.config;
 
 import com.ustc.demo.inject.bean.Fruit;
-import com.ustc.demo.inject.FruitService;
+import com.ustc.demo.inject.service.FruitService;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +16,4 @@ public class MyConfiguration {
     public FruitService getFruitService(ObjectProvider<Fruit> object) {
         return new FruitService(object);
     }
-
-
 }

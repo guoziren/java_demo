@@ -1,4 +1,4 @@
-package com.ustc.demo.inject;
+package com.ustc.demo.inject.service;
 
 import com.ustc.demo.inject.bean.Fruit;
 import lombok.AllArgsConstructor;
@@ -12,5 +12,8 @@ import org.springframework.beans.factory.ObjectProvider;
 @Data
 @AllArgsConstructor
 public class FruitService {
+
     private ObjectProvider<Fruit> fruitObjectProvider;
+
+
 }

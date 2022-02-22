@@ -1,7 +1,7 @@
 package com.ustc.demo.inject.controller;
 
 import com.ustc.demo.inject.bean.Fruit;
-import com.ustc.demo.inject.FruitService;
+import com.ustc.demo.inject.service.FruitService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 @Slf4j
 public class TestController {
+
     @Autowired
     FruitService fruitService;
 
