@@ -2,6 +2,7 @@ package com.ustc.demo.inject.bean;
 
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.initialization.qual.Initialized;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
