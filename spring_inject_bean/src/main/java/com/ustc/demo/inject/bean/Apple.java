@@ -3,7 +3,10 @@ package com.ustc.demo.inject.bean;
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.initialization.qual.Initialized;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Component("apple")
 @Slf4j
-public class Apple extends Fruit implements InitializingBean {
+public class Apple extends Fruit implements InitializingBean, ApplicationContextAware {
 
     public Apple() {
         super();
@@ -39,5 +42,10 @@ public class Apple extends Fruit implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         log.info("Apple afterPropertiesSet");
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        log.info("Apple  setApplicationContext");
     }
 }
