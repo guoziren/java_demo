@@ -21,6 +21,10 @@ public class Logger {
         log.info("after...");
     }
 
+    /**
+     * 环绕通知：可以通过代码的方式实现前置通知、后置通知、异常通知
+     * @param joinPoint
+     */
     @Around(value = "@annotation(com.ustc.spring.aop.annotaion.LogAnnotation)")
     public void logs(ProceedingJoinPoint joinPoint) {
         log.info("before...");
