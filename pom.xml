@@ -22,6 +22,8 @@
         <module>log4j2_logback_demo</module>
         <module>spring_inject_bean</module>
         <module>spring_aop_demo</module>
+        <module>agent_demo</module>
+<!--        <module>util</module>-->
     </modules>
     <properties>
         <powermock.version>2.0.2</powermock.version>
