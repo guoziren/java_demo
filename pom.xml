@@ -21,6 +21,8 @@
         <module>log4j2_demo</module>
         <module>log4j2_logback_demo</module>
         <module>spring_inject_bean</module>
+        <module>thread</module>
+        <module>base</module>
         <module>spring_aop_demo</module>
         <module>agent_demo</module>
         <module>util</module>
